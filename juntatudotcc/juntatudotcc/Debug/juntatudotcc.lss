@@ -1,12 +1,10 @@
 
-AVRASM ver. 2.2.6  c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm Thu Jan 18 01:09:05 2018
+AVRASM ver. 2.2.6  C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm Wed Jan 24 16:06:27 2018
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m328pdef.inc'
-c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm(7): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m328pdef.inc'
-c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm(7): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m328pdef.inc'
                                  
-                                 ;
+                                 
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -987,286 +985,320 @@ c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; juntatudotcc.asm
-                                 ;
-                                 ; Created: 17/01/2018 20:05:45
-                                 ; Author : MarianoBW
-                                 ;
-                                 .include "m328pdef.inc"
-                                 
-                                 ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
-                                 ;*************************************************************************
-                                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
-                                 ;* 
-                                 ;* Number            : AVR000
-                                 ;* File Name         : "m328Pdef.inc"
-                                 ;* Title             : Register/Bit Definitions for the ATmega328P
-                                 ;* Date              : 2011-02-09
-                                 ;* Version           : 2.35
-                                 ;* Support E-mail    : avr@atmel.com
-                                 ;* Target MCU        : ATmega328P
-                                 ;* 
-                                 ;* DESCRIPTION
-                                 ;* When including this file in the assembly program file, all I/O register 
-                                 ;* names and I/O register bit names appearing in the data book can be used.
-                                 ;* In addition, the six registers forming the three data pointers X, Y and 
-                                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
-                                 ;* SRAM is also defined 
-                                 ;* 
-                                 ;* The Register names are represented by their hexadecimal address.
-                                 ;* 
-                                 ;* The Register Bit names are represented by their bit number (0-7).
-                                 ;* 
-                                 ;* Please observe the difference in using the bit names with instructions
-                                 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
-                                 ;* (skip if bit in register set/cleared). The following example illustrates
-                                 ;* this:
-                                 ;* 
-                                 ;* in    r16,PORTB             ;read PORTB latch
-                                 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
-                                 ;* out   PORTB,r16             ;output to PORTB
-                                 ;* 
-                                 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
-                                 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
-                                 ;* rjmp  TOV0_is_set           ;jump if set
-                                 ;* ...                         ;otherwise do something else
-                                 ;*************************************************************************
-                                 
-                                 #ifndef _M328PDEF_INC_
-                                 #endif  /* _M328PDEF_INC_ */
-                                 
-                                 ; ***** END OF FILE ******************************************************
-                                 .equ CLOCK   = 20000000
-                                 .equ BAUD    = 9600
-                                 .equ UBRRVAL = CLOCK/(BAUD*16)-1
                                  
                                  
-                                 .def temp    = R16
+                                 
+                                 .def temp  = R16
                                  .def time1 = r17
                                  .def time2 = r18
-                                 .def sum40 = r19
-                                 .def dir=r20
+                                 .def time3 = r19
+                                 .def sum40 = r20
+                                 .def dir   = r21
+                                 
                                  .def flag40khz = R23
                                  
+                                 
+                                 
+                                 
                                  .org 0x0000
-000000 c028                      	rjmp start
+000000 c01c                      	rjmp start
                                  
                                  .org 0x002           ; local da memoria do ext_int0       pag 65
-000002 c075                      	rjmp int0_calc
-                                 
-                                 .org 0x004           ; local da memoria do ext_int1
-000004 c091                      	rjmp int1_ini
+000002 c0be                      	rjmp int0_calc
                                  
                                  .org 0x001A   ; timer1 ovf
-00001a c06f                      	rjmp timer1_ovf
+00001a c0a2                      	rjmp timer1_ovf
                                  
                                  .org 0x001C   ; local da memoria do TIM0_COMPA 
-00001c c047                      	rjmp TIM0_COMPA
-                                 
-                                 .org 0x0028   ; tx complet
-000028 c03a                      	rjmp loop
-                                 
+00001c c08c                      	rjmp TIM0_COMPA
                                  
                                  start:
-000029 94f8                      	cli
-                                 	;
-00002a e800                      	ldi temp,0b10000000
-                                 	;sts CKSEL,r16
-00002b 9300 0061                 	sts CLKPR,temp
-                                 	;ldi r16,0b10000000
-                                 	;sts CLKPR,r16
-00002d e000                      	ldi temp,0b00000000
-00002e 9300 0061                 	sts CLKPR,temp
-                                 	;
-                                 	;saidas e entradas
-                                 	;ldi r16,0b11000001     ;configura pino PD0,PD6,PD7,PC3,PC4 como saída e demais como entradas
-000030 9a50                      	sbi DDRD,0
-000031 9a56                      	sbi DDRD,6
-000032 9a57                      	sbi DDRD,7
-000033 9a3b                      	sbi DDRC,3
-000034 9a3c                      	sbi DDRC,4
-                                 	;-------------------------------
-                                 	;serial config
-                                 		; inisialisasi baudrate
-000035 e801                      	ldi temp, LOW(UBRRVAL)
-000036 9300 00c4                 	sts UBRR0L, temp
-000038 e000                      	ldi temp, HIGH(UBRRVAL)
-000039 9300 00c5                 	sts UBRR0H, temp
                                  
-                                 		; Frame-Format: 8 Bit
-00003b e006                      	ldi temp, 0b00000110
-00003c 9300 00c2                 	sts UCSR0C, temp
+                                 	;desativa interrupções
+00001d 94f8                      	cli
                                  
-                                 		; set interrupt and receive
-00003e e408                      	ldi temp, (1<<TXCIE0)|(1<<TXEN0)
-00003f 9300 00c1                 	sts UCSR0B, temp
+                                 	;configura CLK, desativa div8
+00001e e800                      	ldi temp,0b10000000
+00001f 9300 0061                 	sts CLKPR,temp
+000021 e000                      	ldi temp,0b00000000
+000022 9300 0061                 	sts CLKPR,temp
                                  
-                                 	;--------------------
+                                 	;configura pinos de saida
+                                 	
+000024 9a3b                      	sbi DDRC,3 ;direçao 1
+000025 9a3c                      	sbi DDRC,4 ;direçao 2
+000026 9a3d                      	sbi DDRC,5 ;se 0 RX, se 1 TX (max485) 
+000027 9a56                      	sbi DDRD,6 ;saida 40KHz
+                                 
+                                 	;configura serial
+                                 		; baudrate 9600
+000028 e000                      	ldi temp,0b00000000 ;0
+000029 9300 00c5                 	sts UBRR0H, temp
+00002b e801                      	ldi temp,0b10000001 ;129
+00002c 9300 00c4                 	sts UBRR0L, temp
+                                 		; ativa RX , 
+00002e e100                      	ldi temp,0b00010000; RX
+00002f 9300 00c1                 	sts UCSR0B, temp
+                                 		; 8 Bit, sem paridade e 1 bit de fim 
+000031 e006                      	ldi temp, 0b00000110
+000032 9300 00c2                 	sts UCSR0C, temp
+                                 
                                  	;40KHz
-                                 	
-000041 e000                      	ldi temp,0b00000000
-000042 bd04                      	out TCCR0A,temp
-000043 bd05                      	out TCCR0B,temp
-000044 e002                      	ldi temp,0b00000010    ;configura TCC0A    CTC mode		 pg 104
-000045 bd04                      	out TCCR0A,temp
-000046 e001                      	ldi temp,0b00000001    ;configura TCC0B    clk/1			 pg 107
-000047 bd05                      	out TCCR0B,temp
-000048 ef08                      	ldi temp,0b11111000    ; OCR0A = 248  // para clk=20MHz
-                                 	;ldi temp,0b01100100    ; OCR0A = 100 // para clk=8MHz
-000049 bd07                      	out OCR0A,temp
-00004a e000                      	ldi temp,0b00000000    ; saida = 0
-00004b b90b                      	out PORTD,temp
-00004c e002                      	ldi temp,0b00000010    ;liga clk 40khz
-00004d 9300 006e                 	sts TIMSK0,temp
-                                 	;
-                                 	;-------------------------------
-                                 	;interrupçao externa
-00004f e00e                      	ldi temp,0b00001110 ; rising edge of INT1 /  falling edge of INT0 // pg 71
-000050 9300 0069                 	sts EICRA,temp
-000052 e002                      	ldi temp,0b00000010 ; liga int1 e int0
-000053 bb0d                      	out EIMSK,temp      
-                                 	;
-                                 	;-------------------------------
+000034 e000                      	ldi temp,0b00000000
+000035 bd04                      	out TCCR0A,temp
+000036 bd05                      	out TCCR0B,temp
+000037 e002                      	ldi temp,0b00000010    ;configura TCC0A    CTC mode	
+000038 bd04                      	out TCCR0A,temp
+000039 e000                      	ldi temp,0b00000000    ;configura TCC0B    clk=0 (ativa depois)
+00003a bd05                      	out TCCR0B,temp
+00003b ef08                      	ldi temp,0b11111000    ; OCR0A = 248  // para clk=20MHz
+00003c bd07                      	out OCR0A,temp
+00003d e000                      	ldi temp,0b00000000    ; saida = 0
+00003e b90b                      	out PORTD,temp
+00003f e002                      	ldi temp,0b00000010    ;liga clk 40khz
+000040 9300 006e                 	sts TIMSK0,temp
+                                 
                                  	;Timer1 config
-000054 e000                      	ldi temp,0b00000000
-000055 9300 0080                 	sts TCCR1A,temp        ;configura TCCR1A    normal mode		 pg 132
-                                 	;out TCCR1B,r16
-000057 e001                      	ldi temp,0b00000001    ;configura TCCR1B    clk/1			 pg 133
-000058 9300 0081                 	sts TCCR1B,temp
-00005a e001                      	ldi temp,0b00000001    ;liga timer1 ovf
-00005b 9300 006f                 	sts TIMSK1,temp
+000042 e000                      	ldi temp,0b00000000
+000043 9300 0080                 	sts TCCR1A,temp        ;configura TCCR1A    normal mode
+000045 e000                      	ldi temp,0b00000000    ;configura TCCR1B    clk=0 (ativa depois)
+000046 9300 0081                 	sts TCCR1B,temp
+000048 e001                      	ldi temp,0b00000001    ;liga timer1 ovf
+000049 9300 006f                 	sts TIMSK1,temp
                                  
-                                 	; ini var
-00005d e000                      	ldi temp,0b00000000
-00005e e030                      	ldi sum40,0b00000000 ; contador de pulsos
-00005f e040                      	ldi dir,0b00000000
-000060 e070                      	ldi flag40khz,0b00000000    ; flag 40khz
+                                 	;interrupção externa
+00004b e002                      	ldi temp,0b00000010 ;  falling edge of INT0 
+00004c 9300 0069                 	sts EICRA,temp
+00004e e000                      	ldi temp,0b00000000 ; liga int0 depois
+00004f bb0d                      	out EIMSK,temp
+                                 
+                                 	;zerar tudo 
+000050 e000                      	ldi temp,0b00000000
+000051 e010                      	ldi time1,0b00000000
+000052 e020                      	ldi time2,0b00000000
+000053 e030                      	ldi time3,0b00000000
+000054 e040                      	ldi sum40,0b00000000 ; contador de pulsos
+000055 e050                      	ldi dir,0b00000000
+000056 e070                      	ldi flag40khz,0b00000000    ; flag 40khz
+000057 9845                      	cbi PORTC,5
+000058 9844                      	cbi PORTC,4
+000059 9843                      	cbi PORTC,3
+                                 
+                                 	; ativa interrupções
+00005a 9478                      	sei	
                                  	
-000061 9478                      	sei					 ; ativa interrupçao
-000062 c000                      	rjmp loop
+                                 	; vai para RX esperar comando				 
+00005b c000                      	rjmp RX
                                  
-                                 ;------------------------------
+                                 RX:
+                                 	; aguarda receber instrução em RX
+00005c 9845                      	cbi PORTC,5
+00005d 9100 00c0                 	lds temp, UCSR0A 
+00005f ff07                      	sbrs temp, RXC0
+000060 cffb                      	rjmp RX
+                                 	; guarda instrução recebida
+000061 9150 00c6                 	lds dir, UDR0
                                  
-000063 cfff                      loop: rjmp loop
+                                 	; desativa comunicação RX
+000063 e000                      	ldi temp,0b00000000
+000064 9300 00c1                 	sts UCSR0B, temp
+                                 	
+                                 	; zera flag int0
+000066 e001                      	ldi temp,0b00000001
+000067 9300 001c                 	sts EIFR, temp
                                  
-                                 ;------------------------------
+                                 	; verifica se comando = 1
+000069 3351                      	cpi dir, 0b00110001 
+00006a f409                      	BRNE nao1 ; se /= 1
+00006b c01a                      	rjmp DIR1  ; se = 1
                                  
-                                 	; 40KHz clk out
-                                 TIM0_COMPA: ; nao funciona ?????
-000064 94f8                      	cli
+                                 
+                                 nao1:
+                                 	; verifica se comando = 2
+00006c 3352                      	cpi dir, 0b00110010 
+00006d f409                      	BRNE erro ; se /= 2 (comando invalido)
+00006e c028                      	rjmp DIR2  ; se = 2
+                                 
+                                 erro:
+00006f e008                      	ldi temp,0b00001000;TX on
+000070 9300 00c1                 	sts UCSR0B, temp
+000072 9a45                      	sbi PORTC,5
+                                 
+000073 9100 00c0                 	lds temp, UCSR0A 
+000075 ff05                      	sbrs temp, UDRE0
+000076 cff8                      	rjmp erro
+000077 e465                      	ldi r22,0b01000101
+000078 9360 00c6                     sts UDR0, r22
+                                 
+00007a c000                      	rjmp comfim
+                                 
+                                 comfim: ; fim da comunicação
+00007b 9100 00c0                 	lds temp, UCSR0A 
+00007d ff06                      	sbrs temp,TXC0
+00007e cffc                      	rjmp comfim
+00007f e600                      	ldi temp,0b01100000;TX fim
+000080 9300 00c0                 	sts UCSR0A, temp
+000082 e100                      	ldi temp,0b00010000; RX on
+000083 9300 00c1                 	sts UCSR0B, temp
+000085 cfd6                      	rjmp RX
+                                 
+                                 DIR1:
+000086 94f8                      	cli
+                                 
+                                 	; ativa int0
+000087 e001                      	ldi temp,0b00000001 
+000088 bb0d                      	out EIMSK,temp 
+                                 	
+000089 e000                      	ldi temp,0b00000000 ; reseta timer 0 e 1
+00008a bd06                      	out TCNT0,temp		;|
+00008b 9300 0084                 	sts TCNT1L,temp     ; -->zerar o tempo									
+00008d 9300 0085                 	sts TCNT1H,temp		;|
+                                 
+00008f e040                      	ldi sum40, 0b00000000 ;zera contador de pulsos 
+                                 
+000090 e001                      	ldi temp,0b00000001    
+000091 bd05                      	out TCCR0B,temp	;configura TCCR0B    clk/1									         
+000092 9300 0081                 	sts TCCR1B,temp ;configura TCCR1B    clk/1
+                                 
+                                 	
+000094 9a43                      	sbi PORTC,3
+000095 9478                      	sei
+000096 c011                      	rjmp loop
+                                 
+                                 
+                                 DIR2:
+000097 94f8                      	cli
+                                 
+                                 	; ativa int0
+000098 e001                      	ldi temp,0b00000001 
+000099 bb0d                      	out EIMSK,temp 
+                                 	
+00009a e000                      	ldi temp,0b00000000 ; reseta timer 0 e 1
+00009b bd06                      	out TCNT0,temp		;|
+00009c 9300 0084                 	sts TCNT1L,temp     ; -->zerar o tempo									
+00009e 9300 0085                 	sts TCNT1H,temp		;|
+                                 
+0000a0 e040                      	ldi sum40, 0b00000000 ;zera contador de pulsos 
+                                 
+0000a1 e001                      	ldi temp,0b00000001    
+0000a2 bd05                      	out TCCR0B,temp	;configura TCCR0B    clk/1									         
+0000a3 9300 0081                 	sts TCCR1B,temp ;configura TCCR1B    clk/1
+                                 
+0000a5 9a44                      	sbi PORTC,4
+0000a6 9478                      	sei
+0000a7 c000                      	rjmp loop
+                                 
+                                 loop:
+0000a8 cfff                      	rjmp loop
+                                 
+                                 TIM0_COMPA:
+0000a9 94f8                      	cli
                                  	;cpi sum40,0b00000101
                                  	;breq fim40khz
-000065 3070                      	cpi flag40khz,0b00000000 ; se flag = 0 
-000066 f431                      	brne baixo ;PC+2 ; entao   / pula 1 linha se nao igual
-000067 c000                      	rjmp cima  ; seta 1 no pind6
+0000aa 3070                      	cpi flag40khz,0b00000000 ; se flag = 0 
+0000ab f431                      	brne baixo ;PC+2 ; entao   / pula 1 linha se nao igual
+0000ac c000                      	rjmp cima  ; seta 1 no pind6
                                  
                                  cima:
-000068 9a5e                      	sbi PORTD,6 ; seta 1 no pind6
-000069 e071                      	ldi flag40khz,0b00000001 ; levanta flag 40khz
-00006a 9478                      	sei
-00006b 0f37                      	add sum40,flag40khz
-00006c cff6                      	rjmp loop
+0000ad 9a5e                      	sbi PORTD,6 ; seta 1 no pind6
+0000ae e071                      	ldi flag40khz,0b00000001 ; levanta flag 40khz
+0000af 9478                      	sei
+0000b0 0f47                      	add sum40,flag40khz
+                                 	;RET
+0000b1 cff6                      	rjmp loop
                                  baixo:
-00006d 985e                      	cbi PORTD,6 ; se nao, seta 0 no pind6
-00006e e070                      	ldi flag40khz,0b00000000 ; zerra flag 40khz
-00006f 9478                      	sei
-000070 cff2                      	rjmp loop
+0000b2 985e                      	cbi PORTD,6 ; se nao, seta 0 no pind6
+0000b3 e070                      	ldi flag40khz,0b00000000 ; zerra flag 40khz
+0000b4 9478                      	sei
+                                 	;RET
+0000b5 cff2                      	rjmp loop
                                  fim40khz:
-000071 985e                      	cbi PORTD,6
-000072 e070                      	ldi flag40khz,0b00000000
+0000b6 985e                      	cbi PORTD,6
+0000b7 e070                      	ldi flag40khz,0b00000000
                                  	
-000073 e000                      	ldi temp,0b00000000    ;configura TCC0B    clk off			 pg 107
-000074 9300 0025                 	sts TCCR0B,temp
-000076 9478                      	sei
-000077 cfeb                      	rjmp loop
-                                 
-                                 ;------------------------------
-                                 ;realizaçao da leitura
-                                 
-                                 int0_calc:
-000078 94f8                      	cli
-000079 e000                      	ldi temp,0b00000000    ;configura TCC0B    clk off			 pg 107
-00007a bd05                      	out TCCR0B,temp
-                                 
-00007b e000                      	ldi temp,0b00000000    ;configura TCC1B    clk off			 pg 107
-00007c 9300 0081                 	sts TCCR1B,temp
-                                 
-00007e 9110 0084                 	lds time1,TCNT1L    ; guarda valores de tempo							 /// ver se esta certo
-000080 9120 0085                 	lds time2,TCNT1H    ;													             ||
-                                 	
-000082 985e                      	cbi PORTD,6 ;  seta 0 no pind6
-000083 e070                      	ldi flag40khz,0b00000000 ; zerra flag 40khz
-                                 
-000084 9843                      	cbi PORTC,3  ; zerra controle de direçao
-000085 9844                      	cbi PORTC,4
-                                 
-000086 e002                      	ldi temp,0b00000010 ;desativa int0 e ativa int1
-000087 bb0d                      	out EIMSK,temp
-                                 
-000088 9478                      	sei
-000089 cfd9                      	rjmp loop
-                                 
-                                 ;-----------------------------------
-                                 ;tempo de diferença extra (fazer)  
+0000b8 e000                      	ldi temp,0b00000000    ;configura TCC0B    clk off			 pg 107
+0000b9 9300 0025                 	sts TCCR0B,temp
+0000bb 9478                      	sei
+                                 	;RET
+0000bc cfeb                      	rjmp loop
                                  
                                  timer1_ovf:
-00008a 94f8                      	cli
-00008b 3060                      	cpi r22,0b00000000 ; se flag = 0 
-00008c f429                      	brne baixo1 ;PC+2 ; entao   / pula 1 linha se nao igual
-00008d c000                      	rjmp cima1  ; seta 1 no pind0
-                                 
-                                 cima1:
-00008e 9a58                      	sbi PORTD,0 ; seta 1 no pind0
-00008f e061                      	ldi r22,0b00000001 ; levanta flag
-000090 9478                      	sei
-000091 cfd1                      	rjmp loop
-                                 baixo1:
-000092 9858                      	cbi PORTD,0 ; se nao, seta 0 no pind0
-000093 e060                      	ldi r22,0b00000000 ; zerar flag 
-000094 9478                      	sei
-000095 cfcd                      	rjmp loop
-                                 
-                                 ;------------------------------------------
-                                 ;inicio da amostragem (mudar para comando em RX)
-                                 int1_ini:
-000096 94f8                      	cli
+0000bd 94f8                      	cli
+0000be 9533                      	INC time3
+0000bf 9478                      	sei
+0000c0 cfe7                      	rjmp loop
+                                 	;RET
                                  
                                  
-000097 e000                      	ldi temp,0b00000000 ; reseta timer 0 e 1
-000098 bd06                      	out TCNT0,temp
-000099 9300 0084                 	sts TCNT1L,temp     ; zerar o tempo									/// ver se esta certo
-00009b 9300 0085                 	sts TCNT1H,temp	   ;	
+                                 int0_calc:
+0000c1 94f8                      	cli
                                  
+0000c2 e000                      	ldi temp,0b00000000    
+0000c3 9300 0081                 	sts TCCR1B,temp ;configura TCC1B    clk off	
+0000c5 bd05                      	out TCCR0B,temp ;configura TCC0B    clk off	 
+                                 
+0000c6 e000                      	ldi temp,0b00000000 ;desativa int0
+0000c7 bb0d                      	out EIMSK,temp
+                                 
+0000c8 9110 0084                 	lds time1,TCNT1L    ; guarda valores de tempo
+0000ca 9120 0085                 	lds time2,TCNT1H    
                                  	
-00009d e001                      	ldi temp,0b00000001    ;configura TCCR0B    clk/1			 pg 107
-00009e bd05                      	out TCCR0B,temp												      
-00009f e001                      	ldi temp,0b00000001    ;configura TCCR1B    clk/1		     pg 107
-0000a0 9300 0081                 	sts TCCR1B,temp
+0000cc 985e                      	cbi PORTD,6 ;  seta 0 no pind6
+0000cd e070                      	ldi flag40khz,0b00000000 ; zerra flag 40khz
+                                 	
+                                 	; zerra controles de direção
+0000ce 9843                      	cbi PORTC,3  
+0000cf 9844                      	cbi PORTC,4
+                                 	
+0000d0 e008                      	ldi temp,0b00001000;TX on
+0000d1 9300 00c1                 	sts UCSR0B, temp
+0000d3 9a45                      	sbi PORTC,5	
+0000d4 9478                      	sei
+0000d5 c000                      	rjmp TXdir
                                  
-0000a2 e001                      	ldi temp,0b00000001 ;desativa int1 e ativa int0
-0000a3 bb0d                      	out EIMSK,temp 
+                                 TXdir:
+0000d6 9100 00c0                 	lds temp, UCSR0A 
+0000d8 ff05                      	sbrs temp, UDRE0
+0000d9 cffc                      	rjmp TXdir
+0000da 9350 00c6                     sts UDR0, dir
+                                 TXdirfim:
+0000dc 9100 00c0                 	lds temp, UCSR0A 
+0000de ff06                      	sbrs temp,TXC0
+0000df cffc                      	rjmp TXdirfim
+0000e0 e600                      	ldi temp,0b01100000;TX fim
+0000e1 9300 00c0                 	sts UCSR0A, temp
                                  
-0000a4 e030                      	ldi sum40, 0b00000000
+                                 TXtime1:
+0000e3 9100 00c0                 	lds temp, UCSR0A 
+0000e5 ff05                      	sbrs temp, UDRE0
+0000e6 cffc                      	rjmp TXtime1
+0000e7 9310 00c6                     sts UDR0, time1
+                                 TX1fim:
+0000e9 9100 00c0                 	lds temp, UCSR0A 
+0000eb ff06                      	sbrs temp,TXC0
+0000ec cffc                      	rjmp TX1fim
+0000ed e600                      	ldi temp,0b01100000;TX fim
+0000ee 9300 00c0                 	sts UCSR0A, temp
                                  
-0000a5 3048                      	cpi dir,0b00001000 
-0000a6 f029                      	breq dir2
-0000a7 c000                      	rjmp dir1
+                                 TXtime2:
+0000f0 9100 00c0                 	lds temp, UCSR0A 
+0000f2 ff05                      	sbrs temp, UDRE0
+0000f3 cffc                      	rjmp TXtime2
+0000f4 9320 00c6                     sts UDR0, time2
+                                 TX2fim:
+0000f6 9100 00c0                 	lds temp, UCSR0A 
+0000f8 ff06                      	sbrs temp,TXC0
+0000f9 cffc                      	rjmp TX2fim
+0000fa e600                      	ldi temp,0b01100000;TX fim
+0000fb 9300 00c0                 	sts UCSR0A, temp
                                  
-                                 dir1:
-0000a8 e048                      	ldi dir,0b00001000
-0000a9 9a43                      	sbi PORTC,3
-0000aa 9478                      	sei
-0000ab cfb7                      	rjmp loop
-                                 dir2:
-0000ac e140                      	ldi dir,0b00010000
-0000ad 9a44                      	sbi PORTC,4
-0000ae 9478                      	sei
-0000af cfb3                      	rjmp loop
+                                 TXtime3:
+0000fd 9100 00c0                 	lds temp, UCSR0A 
+0000ff ff05                      	sbrs temp, UDRE0
+000100 cffc                      	rjmp TXtime3
+000101 9330 00c6                     sts UDR0, time3
                                  
-                                 
-                                 
-                                 
-                                 
+000103 cf77                      	rjmp comfim
                                  
 
 
@@ -1287,37 +1319,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  54 r17:   1 r18:   1 r19:   3 r20:   4 
-r21:   0 r22:   3 r23:   7 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  99 r17:   3 r18:   3 r19:   3 r20:   4 
+r21:   5 r22:   2 r23:   7 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
-Registers used: 7 out of 35 (20.0%)
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   1 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   2 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   6 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   5 cln   :   0 clr   :   0 cls   :   0 
+brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   9 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   6 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   3 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  38 lds   :   2 lpm   :   0 lsl   :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
+ld    :   0 ldd   :   0 ldi   :  49 lds   :  13 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  12 pop   :   0 
-push  :   0 rcall :   0 ret   :   0 reti  :   0 rjmp  :  19 rol   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  15 pop   :   0 
+push  :   0 rcall :   0 ret   :   0 reti  :   0 rjmp  :  29 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   9 sbic  :   0 sbis  :   0 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
-sei   :   9 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  16 
+sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :  10 sec   :   0 seh   :   0 
+sei   :   8 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  33 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 13 out of 113 (11.5%)
+Instructions used: 14 out of 113 (12.4%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000160    282      0    282   32768   0.9%
+[.cseg] 0x000000 0x000208    470      0    470   32768   1.4%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

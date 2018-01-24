@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm Thu Jan 18 01:09:05 2018
+AVRASM ver. 2.2.6  C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm Wed Jan 24 16:06:27 2018
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,25 +695,31 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-EQU  CLOCK        01312d00
-EQU  BAUD         00002580
-EQU  UBRRVAL      00000081
 DEF  temp         r16
 DEF  time1        r17
 DEF  time2        r18
-DEF  sum40        r19
-DEF  dir          r20
+DEF  time3        r19
+DEF  sum40        r20
+DEF  dir          r21
 DEF  flag40khz    r23
-CSEG start        00000029
-CSEG int0_calc    00000078
-CSEG int1_ini     00000096
-CSEG timer1_ovf   0000008a
-CSEG TIM0_COMPA   00000064
-CSEG loop         00000063
-CSEG baixo        0000006d
-CSEG cima         00000068
-CSEG fim40khz     00000071
-CSEG baixo1       00000092
-CSEG cima1        0000008e
-CSEG dir2         000000ac
-CSEG dir1         000000a8
+CSEG start        0000001d
+CSEG int0_calc    000000c1
+CSEG timer1_ovf   000000bd
+CSEG TIM0_COMPA   000000a9
+CSEG RX           0000005c
+CSEG nao1         0000006c
+CSEG DIR1         00000086
+CSEG erro         0000006f
+CSEG DIR2         00000097
+CSEG comfim       0000007b
+CSEG loop         000000a8
+CSEG baixo        000000b2
+CSEG cima         000000ad
+CSEG fim40khz     000000b6
+CSEG TXdir        000000d6
+CSEG TXdirfim     000000dc
+CSEG TXtime1      000000e3
+CSEG TX1fim       000000e9
+CSEG TXtime2      000000f0
+CSEG TX2fim       000000f6
+CSEG TXtime3      000000fd

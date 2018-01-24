@@ -1,18 +1,18 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.6</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\Debug</WORKING_DIR>
+ <WORKING_DIR>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\Debug</WORKING_DIR>
  <INCLUDE_PATH>
   <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</SOURCE_FILE>
+ <SOURCE_FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m328pdef.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\Debug\juntatudotcc.obj</FILE>
+  <FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\Debug\juntatudotcc.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>juntatudotcc.hex</FILE>
@@ -22,18 +22,26 @@
   <FILE>juntatudotcc.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <start><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>39</LINE></start>
-  <int0_calc><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>155</LINE></int0_calc>
-  <int1_ini><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>200</LINE></int1_ini>
-  <timer1_ovf><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>181</LINE></timer1_ovf>
-  <TIM0_COMPA><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>124</LINE></TIM0_COMPA>
-  <loop><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>119</LINE></loop>
-  <baixo><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>138</LINE></baixo>
-  <cima><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>132</LINE></cima>
-  <fim40khz><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>143</LINE></fim40khz>
-  <baixo1><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>192</LINE></baixo1>
-  <cima1><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>187</LINE></cima1>
-  <dir2><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>229</LINE></dir2>
-  <dir1><FILE>c:\users\marianobw\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>224</LINE></dir1>
+  <start><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>29</LINE></start>
+  <int0_calc><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>247</LINE></int0_calc>
+  <timer1_ovf><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>239</LINE></timer1_ovf>
+  <TIM0_COMPA><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>208</LINE></TIM0_COMPA>
+  <RX><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>107</LINE></RX>
+  <nao1><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>130</LINE></nao1>
+  <DIR1><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>159</LINE></DIR1>
+  <erro><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>136</LINE></erro>
+  <DIR2><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>183</LINE></DIR2>
+  <comfim><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>149</LINE></comfim>
+  <loop><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>205</LINE></loop>
+  <baixo><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>223</LINE></baixo>
+  <cima><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>216</LINE></cima>
+  <fim40khz><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>229</LINE></fim40khz>
+  <TXdir><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>273</LINE></TXdir>
+  <TXdirfim><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>278</LINE></TXdirfim>
+  <TXtime1><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>285</LINE></TXtime1>
+  <TX1fim><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>290</LINE></TX1fim>
+  <TXtime2><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>297</LINE></TXtime2>
+  <TX2fim><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>302</LINE></TX2fim>
+  <TXtime3><FILE>C:\Users\MarianoBW\Documents\Atmel Studio\7.0\juntatudotcc\juntatudotcc\main.asm</FILE><LINE>309</LINE></TXtime3>
  </LABELS>
 </ASSEMBLER_INFO>
