@@ -39,8 +39,8 @@ start:
 
 	;configura pinos de saida
 	
-	sbi DDRC,3 ;direçao 1
-	sbi DDRC,4 ;direçao 2
+	sbi DDRD,7 ;direçao 1
+	sbi DDRB,0 ;direçao 2
 	sbi DDRC,5 ;se 0 RX, se 1 TX (max485) 
 	sbi DDRD,6 ;saida 40KHz
 
@@ -95,8 +95,8 @@ start:
 	ldi dir,0b00000000
 	ldi flag40khz,0b00000000    ; flag 40khz
 	cbi PORTC,5
-	cbi PORTC,4
-	cbi PORTC,3
+	cbi PORTD,7
+	cbi PORTB,0
 
 	; ativa interrupções
 	sei	
@@ -175,7 +175,7 @@ DIR1:
 	sts TCCR1B,temp ;configura TCCR1B    clk/1
 
 	
-	sbi PORTC,3
+	sbi PORTD,7
 	sei
 	rjmp loop
 
@@ -198,7 +198,7 @@ DIR2:
 	out TCCR0B,temp	;configura TCCR0B    clk/1									         
 	sts TCCR1B,temp ;configura TCCR1B    clk/1
 
-	sbi PORTC,4
+	sbi PORTB,0
 	sei
 	rjmp loop
 
@@ -261,8 +261,8 @@ int0_calc:
 	ldi flag40khz,0b00000000 ; zerra flag 40khz
 	
 	; zerra controles de direção
-	cbi PORTC,3  
-	cbi PORTC,4
+	cbi PORTD,7  
+	cbi PORTB,0
 	
 	ldi temp,0b00001000;TX on
 	sts UCSR0B, temp
