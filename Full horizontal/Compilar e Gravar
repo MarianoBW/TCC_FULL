@@ -1,0 +1,12 @@
+// de asm para hex e outros
+avra [nome].asm
+
+
+// gravar
+sudo avrdude -p m328p -c usbasp -e -U lfuse:w:0x97:m -U hfuse:w:0xD9:m -U efuse:w:0xFF:m -U lock:w:0xFF:m -U flash:w:[nome].hex
+
+
+
+
+
+-p atmega328p -c usbasp -P usb -U flash:w:
